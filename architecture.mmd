@@ -1,0 +1,74 @@
+graph LR
+  subgraph Clients
+    A[Android App (Flutter)]
+    B[Web Dashboard]
+    C[CLI / Integrations]
+  end
+
+  subgraph Edge
+    APIGW[API Gateway / Auth]
+    Socket[Realtime / WebSocket]
+  end
+
+  subgraph Core
+    Orchestrator[AI Core / Planner]
+    AgentMgr[Multi-Agent Manager]
+    Planner[Task Planner]
+    Executor[Task Executor / Job Runner]
+    MemoryShort[Short-term Memory (Redis)]
+    MemoryLong[Long-term Memory (Postgres + VectorDB)]
+    LLMAdapters[LLM Adapters & Model Router]
+    Policy[Policy / Permission Engine]
+    Audit[Audit & Logging]
+    Monitor[Monitoring & Observability]
+    PluginHub[Plugin Manager / Marketplace]
+  end
+
+  subgraph Agents
+    AdminAgent[Admin Agent]
+    ContentAgent[Content Agent]
+    DesignAgent[Design Agent]
+    VideoAgent[Video Agent]
+    DevAgent[Programming Agent]
+    ResearchAgent[Research Agent]
+    MarketingAgent[Marketing Agent]
+  end
+
+  subgraph Integrations
+    Gmail
+    Drive
+    GitHub
+    Notion
+    Trello
+    Telegram
+    n8n
+  end
+
+  subgraph Infra
+    MessageBus[Message Bus (Kafka/RabbitMQ)]
+    ObjectStore[S3 / Cloud Storage]
+    Postgres[(PostgreSQL)]
+    VectorDB[(Milvus/Pinecone)]
+    Redis[(Redis)]
+    WorkerPool[Workers / Kubernetes Jobs]
+  end
+
+  Clients --> APIGW
+  APIGW --> Orchestrator
+  APIGW --> AgentMgr
+  Orchestrator --> Planner
+  Planner --> AgentMgr
+  AgentMgr --> Agents
+  Agents --> Executor
+  Executor --> Integrations
+  Executor --> ObjectStore
+  AgentMgr --> MemoryShort
+  AgentMgr --> MemoryLong
+  Orchestrator --> LLMAdapters
+  LLMAdapters --> VectorDB
+  MessageBus --> AgentMgr
+  AgentMgr --> MessageBus
+  PluginHub --> AgentMgr
+  Policy --> APIGW
+  Audit --> APIGW
+  Monitor --> *
