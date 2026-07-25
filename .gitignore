@@ -1,0 +1,36 @@
+# Git Ignore for Flutter, Python, Node
+
+# Flutter / Dart
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.flutter-plugins-dependencies
+.ios/Pods/
+android/.gradle/
+**/GeneratedPluginRegistrant.java
+
+# Visual Studio / IntelliJ
+.idea/
+*.iml
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+env/
+venv/
+.env
+.python-version
+
+# Node
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# Misc
+.DS_Store
+*.log
